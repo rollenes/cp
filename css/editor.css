@@ -1,0 +1,59 @@
+/* TODO HTML Bolierplate */
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+#editor {
+    height: 100%;
+    width: 80%;
+    border: 1px solid buttonface;
+    margin: auto;
+}
+
+#tool_area {
+    width: 20%;
+    height: 100%;
+    float: left;
+    
+}
+
+#editor_area {
+    width: 80%;
+    height: 100%;
+    float: left;
+    position: relative;
+}
+
+#container3,
+#container2,
+#container1,
+#container0 {
+    width: 6em;
+    height: 5em;
+    position: absolute;
+    left: 10%;
+    top: 10%;
+    border: 1px solid red;
+}
+
+#container1 {
+    width: 20em;
+    left: 50%;
+    top: 50%;
+}
+
+#container2 {
+    width: 5em;
+    height: 5em;
+    left: 0%;
+    top: 50%;
+}
+
+#container3 {
+    width: 5em;
+    height: 5em;
+    left: 20%;
+    top: 50%;
+}
