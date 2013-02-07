@@ -5,18 +5,18 @@ html, body {
     margin: 0;
 }
 
-#editor {
+#diagram_editor {
     height: 100%;
     width: 80%;
-    border: 1px solid buttonface;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
     margin: auto;
 }
 
-#tool_area {
+#diagram_elements_area {
     width: 20%;
     height: 100%;
     float: left;
-    
 }
 
 #editor_area {
@@ -26,6 +26,71 @@ html, body {
     position: relative;
 }
 
+.diagram_element {
+    width: 3em;
+    height: 3em;
+    line-height: 3em;
+    cursor: pointer;
+}
+
+#editor_area .diagram_element {
+    position: absolute;
+}
+
+
+#diagram_elements_area .diagram_element {
+    margin: 1em auto;
+}
+
+.squere {
+    border: 1px solid #9999ff;
+}
+
+.circle {
+    border: 1px solid #ff6666;
+    border-radius: 3em;
+}
+
+.triangle {
+    width: 0; 
+    height: 0; 
+    border-left: 2em solid transparent;
+    border-right: 2em solid transparent; 
+    border-top: 4em solid #66ff66;
+}
+
+.start {
+    width: 20%;
+    height: 4em;
+    border: 1px solid #000;
+}
+
+#editor_area .start {
+    left: 40%;
+}
+
+.diamond { 
+    width: 0; 
+    height: 0; 
+    border: 2em solid transparent; 
+    border-bottom-color: red; 
+    position: relative; 
+    top: -2em; 
+} 
+
+.diamond:after { 
+    content: ''; 
+    position: absolute; 
+    left: -2em; 
+    top: 2em; 
+    width: 0; 
+    height: 0; 
+    border: 2em solid transparent; 
+    border-top-color: red; 
+}
+
+
+/* Test styles */
 #container3,
 #container2,
 #container1,
