@@ -3,8 +3,12 @@ jsPlumb.ready(function(){
         e1 = jsPlumb.addEndpoint("container1", {anchor: "TopCenter"}),
         e2 = jsPlumb.addEndpoint("container2", {anchor: "TopCenter"}),
         e3 = jsPlumb.addEndpoint("container3", {anchor: "TopCenter"}),
-        e4 = jsPlumb.addEndpoint("container0");
+        e4 = jsPlumb.addEndpoint("container0"),
         e5 = jsPlumb.addEndpoint("container0");
+        
+    jsPlumb.draggable("container0"),
+    jsPlumb.draggable("container3"),
+    jsPlumb.draggable("container1"),
 
     connection0 = jsPlumb.connect({ source:e0, target:e1, connector: [ 'Flowchart' ] });
     connection1 = jsPlumb.connect({ source:e4, target:e2, connector: [ 'Flowchart' ] });
