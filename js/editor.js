@@ -19,7 +19,7 @@ $.fn.extend({
         
         draggable_elements.draggable({
             helper: 'clone',
-            revert: 'invalid',
+            revert: 'invalid'
         } );
 
         on_diagram_drop = function(event, ui) {
@@ -49,24 +49,17 @@ $.fn.extend({
 });
 
 
+//TODO Calculating propper top, left offsets while dragging elements
+//TODO Dragging elements from editor area causes dragging full subtree
+//TODO Dragging from editor_area to elements area removes element from diagram
+//TODO Build an abstract basis of connecting elements
+//TODO Resizing diagram
+//TODO Testing in diferent browsers
+//TODO Build an abstract basis of editing diagram elements
+//TODO Comunication data structure proposal
+//TODO Data saving 
 
 jsPlumb.ready(function(){
-    var e0 = jsPlumb.addEndpoint("container0"),
-        e1 = jsPlumb.addEndpoint("container1", {anchor: "TopCenter"}),
-        e2 = jsPlumb.addEndpoint("container2", {anchor: "TopCenter"}),
-        e3 = jsPlumb.addEndpoint("container3", {anchor: "TopCenter"}),
-        e4 = jsPlumb.addEndpoint("container0"),
-        e5 = jsPlumb.addEndpoint("container0");
-        
-    jsPlumb.draggable("container0");
-    jsPlumb.draggable("container3");
-    jsPlumb.draggable("container1");
-
-//    jsPlumb.draggable($(".container"));
-
-    connection0 = jsPlumb.connect({ source:e0, target:e1, connector: [ 'Flowchart' ] });
-    connection1 = jsPlumb.connect({ source:e4, target:e2, connector: [ 'Flowchart' ] });
-    connection2 = jsPlumb.connect({ source:e5, target:e3, connector: [ 'Flowchart' ] });
 
     $(window).resize(function() {
         e0.repaint();
