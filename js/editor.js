@@ -11,18 +11,39 @@ $.fn.extend({
             element_class: 'diagram_element'
         };
         
+        var self = this;
+        
         $.extend( this.options, options );
+            
+        var draggable_elements = $( '.' + this.options.element_class, this.options.elements_area );
         
-        var draggable_elements = $( '.' + this.options.element_class, this.options.workspace );
+        draggable_elements.draggable({
+            helper: 'clone',
+            revert: 'invalid',
+        } );
+
+        on_diagram_drop = function(event, ui) {
+                
+                offset = $(this).offset();
+                
+                new_element = ui.draggable.clone().insertAfter($(this)).offset({
+                    top: offset.top + 2 * $(this).height()
+                });
+                
+                start = jsPlumb.addEndpoint( $(this) );
+                
+                end = jsPlumb.addEndpoint( new_element, {anchor: "TopCenter"} );
+                
+                connection = jsPlumb.connect( { source: start, target: new_element, connector: [ 'Flowchart' ], anchor: "TopCenter" } );
+                
+                new_element.droppable({
+                   drop: on_diagram_drop 
+                });
+        };
         
-        console.log( draggable_elements );
-        
-        jsPlumb.draggable( draggable_elements );
-        
-        draggable_elements.droppable(  )
-        
-        console.log( draggable_elements );
-        
+        $('.diagram_element.start').droppable({
+            drop: on_diagram_drop
+        });
     }
     
 });
