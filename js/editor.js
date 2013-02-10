@@ -1,3 +1,34 @@
+document.onselectstart = function () { return false; };
+
+$.fn.extend({
+   
+    diagram_editor: function( options ) {
+        
+        this.options = {
+            workspace: $(this),
+            elements_area: $('#diagram_elements_area'),
+            diagram_area: $('#editor_area'),
+            element_class: 'diagram_element'
+        };
+        
+        $.extend( this.options, options );
+        
+        var draggable_elements = $( '.' + this.options.element_class, this.options.workspace );
+        
+        console.log( draggable_elements );
+        
+        jsPlumb.draggable( draggable_elements );
+        
+        draggable_elements.droppable(  )
+        
+        console.log( draggable_elements );
+        
+    }
+    
+});
+
+
+
 jsPlumb.ready(function(){
     var e0 = jsPlumb.addEndpoint("container0"),
         e1 = jsPlumb.addEndpoint("container1", {anchor: "TopCenter"}),
@@ -6,9 +37,11 @@ jsPlumb.ready(function(){
         e4 = jsPlumb.addEndpoint("container0"),
         e5 = jsPlumb.addEndpoint("container0");
         
-    jsPlumb.draggable("container0"),
-    jsPlumb.draggable("container3"),
-    jsPlumb.draggable("container1"),
+    jsPlumb.draggable("container0");
+    jsPlumb.draggable("container3");
+    jsPlumb.draggable("container1");
+
+//    jsPlumb.draggable($(".container"));
 
     connection0 = jsPlumb.connect({ source:e0, target:e1, connector: [ 'Flowchart' ] });
     connection1 = jsPlumb.connect({ source:e4, target:e2, connector: [ 'Flowchart' ] });
