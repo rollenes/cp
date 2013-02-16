@@ -92,37 +92,3 @@ html, body {
     border: 2em solid transparent; 
     border-top-color: red; 
 }
-
-
-/* Test styles */
-#container3,
-#container2,
-#container1,
-#container0 {
-    width: 6em;
-    height: 5em;
-    position: absolute;
-    left: 10%;
-    top: 100%;
-    border: 1px solid red;
-}
-
-#container1 {
-    width: 20em;
-    left: 50%;
-    top: 150%;
-}
-
-#container2 {
-    width: 5em;
-    height: 5em;
-    left: 0%;
-    top: 150%;
-}
-
-#container3 {
-    width: 5em;
-    height: 5em;
-    left: 20%;
-    top: 150%;
-}
