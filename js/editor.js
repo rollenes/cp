@@ -83,23 +83,15 @@ jsPlumb.ready(function(){
             return jsPlumb.connect( { source: start, target: end } );
         },
     
-        /**
-         * @todo Complete it
-         */
-        dumpTree: function( depth, elem ) {
+        dumpTree: function( depth ) {
             if( depth === undefined ) {
                 depth = 0;
             }
         
-            if( elem === undefined ) {
-                elem = this;
-            }
-        
-            var that = this;
+            console.log( " " . repeat( depth ) + "->" , this.element );
             
-            $.each( elem._children, function( index, child ) {
-                console.log( " " . repeat( depth ) + "->" , child );
-                that.dumpTree( depth + 1, child.diagramDroppable() );
+            $.each( this._children, function( index, child ) {
+                child.diagramDroppable( "dumpTree", depth + 1 );
             });
         }
     });
@@ -107,7 +99,6 @@ jsPlumb.ready(function(){
 })(jQuery);
 
 //TODO Calculating propper top, left offsets while dragging elements
-//TODO Create a dumpTree method
 //TODO Dragging elements from editor area causes dragging full subtree
 //TODO Dragging from editor_area to elements area removes element from diagram
 //TODO Build an abstract basis of connecting elements
