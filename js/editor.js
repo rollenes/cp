@@ -4,6 +4,7 @@ jsPlumb.ready(function(){
     jsPlumb.importDefaults({
         PaintStyle: { lineWidth:1, strokeStyle:"#456"},
         Connector: [ 'Flowchart' ],
+        Container: $('#editor_area'),
         ConnectionsDetachable: false
     });
 });
@@ -29,7 +30,8 @@ jsPlumb.ready(function(){
             this._childrenWrapper = $();
 
             this._connections = [];
-            
+            this._endpoints = [];
+                        
             this.element.droppable({
                 drop: function( event, ui ) {
                     new_element = ui.draggable.clone();
@@ -52,18 +54,53 @@ jsPlumb.ready(function(){
             
             this._appendChildToDiagram( child_element );
             
-            var connection = this._createConnection( this.element, child_element );
-            
-            this._connections.push( connection );
+            this._appendConnection( this.element, child_element );
         },
-
+        
+        getWidth: function() {
+            return Math.max( this.element.width(), this._childrenWrapper.width() );
+        },
+        
+        getHeight: function() {
+            return Math.max( this.element.height(), this._childrenWrapper.height() );
+        },
+        
         repaint: function() {
-    
-            $.each( this._children, function(index, child){
-                console.log('repaintchild')
+            var totalWidth = 0;
+            var maxHeight = 0;
+            
+            $.each( this._children, function( index, child ) {
                 child.diagramDroppable( "repaint" );
+                
+                totalWidth += child.diagramDroppable( "getWidth" );
+                maxHeight = Math.max( child.diagramDroppable( "getWidth" ), maxHeight );
+                
             });
-                    
+        
+            var element_offset = this.element.offset();
+        
+            this._childrenWrapper.height( maxHeight );
+            
+            var distance_beetween_elements = totalWidth / 5;
+            
+            this._childrenWrapper.width( totalWidth + ( this._children.length - 1 ) * distance_beetween_elements );
+            
+            this._childrenWrapper.offset({
+                top: element_offset.top + 2 * this.element.height()
+            });
+        
+            var current_offset = 0;
+            $.each( this._children, function( index, child ) {
+                console.log(current_offset);
+                child.offset({
+                    left: current_offset
+                });
+            
+                current_offset += child.diagramDroppable("getWidth") + distance_beetween_elements;
+            });
+    
+            this._repaintConnections();
+            
         },
 
         _appendChildToDiagram: function( child_element ) {
@@ -75,12 +112,28 @@ jsPlumb.ready(function(){
             this._childrenWrapper.append( child_element );
         },
 
-        _createConnection: function( begin_element, end_element ) {
+        _appendConnection: function( begin_element, end_element ) {
             var start = jsPlumb.addEndpoint( begin_element );
 
-            var end = jsPlumb.addEndpoint( end_element, { anchor: "TopCenter" } );
+            this._endpoints.push( start );
 
-            return jsPlumb.connect( { source: start, target: end } );
+            var end = jsPlumb.addEndpoint( end_element, { anchor: "TopCenter" } );
+            
+            this._endpoints.push( end );
+
+            var connection = jsPlumb.connect( { source: start, target: end } );
+
+            this._connections.push( connection );
+        },
+    
+        _repaintConnections: function() {
+            $.each( this._endpoints, function( index, endpoint ) {
+                endpoint.repaint();
+            });
+        
+            $.each( this._connections, function( index, connection ) {
+                connection.repaint();
+            });
         },
     
         dumpTree: function( depth ) {
@@ -88,7 +141,7 @@ jsPlumb.ready(function(){
                 depth = 0;
             }
         
-            console.log( " " . repeat( depth ) + "->" , this.element );
+            console.log( "    " . repeat( depth ) + "->" , this.element );
             
             $.each( this._children, function( index, child ) {
                 child.diagramDroppable( "dumpTree", depth + 1 );
