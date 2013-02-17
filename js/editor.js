@@ -151,6 +151,7 @@ jsPlumb.ready(function(){
     
 })(jQuery);
 
+//TODO Normalize the ui draggable elements with propper width and height
 //TODO Calculating propper top, left offsets while dragging elements
 //TODO Dragging elements from editor area causes dragging full subtree
 //TODO Dragging from editor_area to elements area removes element from diagram
