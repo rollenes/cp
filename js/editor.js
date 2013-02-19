@@ -41,6 +41,8 @@ jsPlumb.ready(function(){
                     
                     that.appendChild( new_element );
                     that.repaint();
+                    
+                    event.stopPropagation();
                 }
             });
         },
@@ -88,17 +90,18 @@ jsPlumb.ready(function(){
             this._childrenWrapper.offset({
                 top: element_offset.top + 2 * this.element.height()
             });
-        
+
             var current_offset = 0;
             $.each( this._children, function( index, child ) {
-                console.log(current_offset);
-                child.offset({
-                    left: current_offset
-                });
+                
+                child.css( {
+                    left: current_offset,
+                    top: 0
+                } );
             
                 current_offset += child.diagramDroppable("getWidth") + distance_beetween_elements;
             });
-    
+
             this._repaintConnections();
             
         },
@@ -151,7 +154,6 @@ jsPlumb.ready(function(){
     
 })(jQuery);
 
-//TODO Normalize the ui draggable elements with propper width and height
 //TODO Calculating propper top, left offsets while dragging elements
 //TODO Dragging elements from editor area causes dragging full subtree
 //TODO Dragging from editor_area to elements area removes element from diagram
